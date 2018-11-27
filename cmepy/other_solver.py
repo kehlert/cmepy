@@ -69,7 +69,7 @@ class SolverOther(Solver):
             self._do_step = self.imp_two_step
             use_reaction_matrix = True
         else:
-            raise ValueError, "Unknown integrator: %s" % integrator
+            raise ValueError("Unknown integrator: %s" % integrator)
 
         if use_reaction_matrix:
             # sum the matrices together

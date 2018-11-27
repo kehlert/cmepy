@@ -142,6 +142,6 @@ def main():
         solver.step(t)
         p, p_sink = solver.y
         recorder.write(t, p)
-        print 't = %g; p_sink = %g' % (t, p_sink)
+        print('t = {:.4}; p_sink = {:.4E}'.format(t, p_sink))
     
     cmepy.recorder.display_plots(recorder, title = m.name)

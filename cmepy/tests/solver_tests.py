@@ -1,7 +1,8 @@
 import unittest
 
+import functools
+
 from scipy.stats import binom, poisson
-from itertools import izip
 import numpy
 from numpy.testing import assert_almost_equal
 
@@ -13,9 +14,9 @@ def exact_poisson(rates, shape):
     poissons = []
     assert len(rates) == len(shape)
     
-    for (rate, dim) in izip(rates, shape):
+    for (rate, dim) in zip(rates, shape):
         poissons.append(poisson(rate).pmf(numpy.arange(dim)))
-    exact = reduce(numpy.multiply.outer, poissons)
+    exact = functools.reduce(numpy.multiply.outer, poissons)
     return exact
 
 def exact_binomial(rate, size):
@@ -42,7 +43,7 @@ def compare_against_poisson(rates, shape):
     def constant_propensity(rate):
         return lambda *x : rate
     props = tuple(constant_propensity(r) for r in rates)
-    transitions = tuple((0,)*i + (1,) + (0,)*(size-1-i) for i in xrange(size))
+    transitions = tuple((0,)*i + (1,) + (0,)*(size-1-i) for i in range(size))
     
     m = model.create(
         propensities = props,

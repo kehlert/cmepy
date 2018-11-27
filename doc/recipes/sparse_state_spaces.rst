@@ -81,9 +81,9 @@ We can define a generator in Python to yield precisely
 these states::
 
     def gen_states(n):
-        for x_0 in xrange(n + 1):
-            for x_1 in xrange(x_0 + 1):
-                for x_2 in xrange(x_1 + 1):
+        for x_0 in range(n + 1):
+            for x_1 in range(x_0 + 1):
+                for x_2 in range(x_1 + 1):
                     yield (x_0, x_1, x_2)
         return
     

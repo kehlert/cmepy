@@ -23,10 +23,10 @@ def gen_states(max_papi = 100, dna_count = 1):
     """
     
 
-    for dna in xrange(dna_count + 1):
-        for dna_lrp in xrange(dna_count - dna + 1):
-            for lrp_dna in xrange(dna_count - dna - dna_lrp + 1):
-                for papi in xrange(max_papi + 1):
+    for dna in range(dna_count + 1):
+        for dna_lrp in range(dna_count - dna + 1):
+            for lrp_dna in range(dna_count - dna - dna_lrp + 1):
+                for papi in range(max_papi + 1):
                     yield (dna, dna_lrp, lrp_dna, papi) 
     return
 
@@ -128,7 +128,7 @@ def main():
     for t in time_steps:
         solver.step(t)
         p, p_sink = solver.y
-        print 't = %g; p_sink = %g' % (t, p_sink)
+        print('t = {:.4}; p_sink = {:.4E}'.format(t, p_sink))
         recorder.write(t, p)
     
     cmepy.recorder.display_plots(recorder, title = m.name)

@@ -27,8 +27,10 @@ def from_iter(state_iter):
     
     Returns array of all states from the state iterator 'state_iter'.
     """
-    
-    return numpy.array(list(state_iter)).transpose()
+    if type(state_iter) is set:
+        return numpy.asarray(list(state_iter)).transpose()
+    else:
+        return numpy.asarray(list(state_iter.keys())).transpose()
 
 def from_mapping(state_mapping):
     """
@@ -45,8 +47,9 @@ def from_mapping(state_mapping):
     a state mapping. If a value array is not required,
     simply use from_iter on the state mapping instead.
     """
-    states = from_iter(state_mapping.iterkeys())
-    values = numpy.array(state_mapping.values())
+    
+    states = numpy.asarray(list(state_mapping.keys())).transpose()
+    values = numpy.fromiter(state_mapping.values(), dtype='float')
     return states, values
 
 def to_iter(state_array):

@@ -123,7 +123,7 @@ def main():
     for t in time_steps:
         s.step(t)
         p, p_sink = s.y
-        print 't : %.2f, truncation error : %.2g' % (t, p_sink)
+        print('t : {:.4}, truncation error : {:.4E}'.format(t, p_sink))
         r.write(t, p)
     
     # display a series of contour plots of P(A, B; t) for varying t

@@ -62,7 +62,7 @@ class DomainTests(unittest.TestCase):
         
         dense_states = domain.from_iter(sparse_states)
         state_iter = domain.to_iter(dense_states)
-        for (state, goal_state) in itertools.izip(state_iter, sparse_states):
+        for (state, goal_state) in zip(state_iter, sparse_states):
             assert state == goal_state
     
     def test_sparse_domain_from_mapping(self):

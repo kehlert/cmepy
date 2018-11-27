@@ -20,7 +20,7 @@ def grow_domain(domain_states, transitions, depth, validity_test = None):
         validity_test = non_neg_states
     
     expanded_states = domain_states
-    for _ in xrange(depth):
+    for _ in range(depth):
         # expand support states by one along each state transition
         for transition in transitions:
             shifted_states = lexarrayset.shift(domain_states, transition)

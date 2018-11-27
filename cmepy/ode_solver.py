@@ -69,7 +69,10 @@ class Solver(object):
         """
         
         if self._custom_packing:
-            packed_y_0 = self._pack(self._y_0)
+            if type(self._y_0) is tuple:
+                packed_y_0 = self._pack(*self._y_0)
+            else:
+                packed_y_0 = self._pack(self._y_0)
             if self._transform_dy_dt:
                 def packed_dy_dt(t, y):
                     return self._pack(self._dy_dt(t, self._unpack(y)))
@@ -140,6 +143,6 @@ class Solver(object):
         if not self._ode.successful():
             complaint = ('ODE integration failure '+
                          '(look for messages from DVODE / vode)')
-            raise RuntimeError, complaint
+            raise RuntimeError(complaint)
         self._t = t
         self._y = None

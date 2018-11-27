@@ -32,9 +32,9 @@ def gen_states(initial_copies = None):
     s_0 = initial_copies['S']
     e1_0 = initial_copies['E1']
     e2_0 = initial_copies['E2']
-    for s in xrange(s_0+1):
-        for c1 in xrange(min(e1_0, s_0 - s)+1):
-            for c2 in xrange(min(e2_0, s_0 - s - c1)+1): 
+    for s in range(s_0+1):
+        for c1 in range(min(e1_0, s_0 - s)+1):
+            for c2 in range(min(e2_0, s_0 - s - c1)+1): 
                 yield (c2, c1, s)
     return
 
@@ -126,13 +126,13 @@ def main():
     steps_per_time = 25
     time_steps = numpy.linspace(0.0, t_final, int(steps_per_time*t_final) + 1)
     
-    print 'solving dual enzymatic system to t_final = %.2f' % t_final
+    print('solving dual enzymatic system to t_final = {.2}'.format(t_final))
     for step, t in enumerate(time_steps):
-        print 't = %.2f' % t
+        print('t = %.2f'.format(t))
         solver.step(t)
         # record results every second, not every step
         if step % steps_per_time == 0:
-            print 'recording solution'
+            print('recording solution')
             p, p_sink = solver.y
             recorder.write(t, p)
     

@@ -16,9 +16,9 @@ def create_packing_functions(domain_enum):
         unpack(y) -> (p, p_sink)
     """
     
-    def pack((p, p_sink)):
+    def pack(p, p_sink):
         """
-        pack((p, p_sink)) -> y
+        pack(p, p_sink) -> y
         
         where
         

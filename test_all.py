@@ -57,13 +57,13 @@ def gather_suites(sub_packages, root_package):
         head = chain[-1]
         if head not in sub_packages:
             sub_package = import_sub_package(chain)
-            print '\t+ %s' % str(sub_package)
+            print('\t+ {}'.format(str(sub_package)))
             try:
                 suite = sub_package.suite()
                 test_suites.append(suite)
             except AttributeError:
                 detail = 'sub package \'%s\' has no \'suite()\' method' % head
-                print '\t  -- WARNING : %s, ignoring' % detail
+                print('\t  -- WARNING : {}, ignoring'.format(detail))
         else:
             for sub_package in sub_packages[head]:
                 dfs_add_tests(chain + [sub_package])
@@ -77,13 +77,13 @@ def additional_tests():
     additional_tests() -> unittest.TestSuite
     """
     
-    print ''
-    print '-- gathering test suites :'
-    print ''
+    print('')
+    print('-- gathering test suites :')
+    print('')
     test_suite = gather_suites(SUB_PACKAGES, ROOT_PACKAGE)
-    print ''
-    print '-- running test suites :'
-    print ''
+    print('')
+    print('-- running test suites :')
+    print('')
     all_test_suite = unittest.TestSuite(test_suite)
     
     return all_test_suite

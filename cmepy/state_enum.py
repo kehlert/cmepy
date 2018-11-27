@@ -179,7 +179,7 @@ class StateEnum(object):
         p_states = domain.to_iter(self.states(p_indices))
         if p_sparse is None:
             p_sparse = statistics.Distribution()
-        for index, state in itertools.izip(p_indices, p_states):
+        for index, state in zip(p_indices, p_states):
             value = p_dense[index]
             if value != 0.0:
                 p_sparse[state] = value

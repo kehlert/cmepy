@@ -76,7 +76,7 @@ def gen_reaction_matrices(model,
     
     propensities = model.propensities
     transitions = model.transitions
-    reactions = itertools.izip(propensities, transitions)
+    reactions = zip(propensities, transitions)
     
     src_states = numpy.array(domain_enum.ordered_states)
     src_indices = domain_enum.indices(src_states)
@@ -239,7 +239,7 @@ def create_diff_eqs(reaction_matrices, phi = None):
         return sum_matrix
     
     term = {}
-    const_indices = set(xrange(num_matrices))
+    const_indices = set(range(num_matrices))
     for reaction_subset in phi:
         const_indices.difference_update(reaction_subset)
         term[reaction_subset] = sum_reaction_matrices(reaction_subset)

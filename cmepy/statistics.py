@@ -44,7 +44,7 @@ class Distribution(dict):
         """
         # attempt to infer dimension of state space
         if self:
-            for state in self.iterkeys():
+            for state in self.keys():
                 try:
                     # self is keyed by vector
                     # arguments, return the length of the first one
@@ -114,7 +114,7 @@ class Distribution(dict):
             origin = (0, )*len(shape)
 
         states = set(domain.to_iter(domain.from_rect(shape, origin=origin)))
-        states &= set(self.iterkeys())
+        states &= set(self.keys())
         p_dense = numpy.zeros(shape, dtype=numpy.float)
         origin = numpy.asarray(origin)
         for state in states:
@@ -195,7 +195,7 @@ class Distribution(dict):
         if rhs == 0.0:
             return Distribution()
         else:
-            return Distribution([(k, v*rhs) for (k, v) in self.iteritems()])
+            return Distribution([(k, v*rhs) for (k, v) in self.items()])
     
     def __rmul__(self, lhs):
         """
@@ -324,7 +324,7 @@ def map_distribution(f, p, g=None):
     # each image state s maps to the values in its equivalence class,
     # reduced by g
     p_mapped = {}
-    for s, i, j in itertools.izip(unique_image_states, class_begin, class_end):
+    for s, i, j in zip(unique_image_states, class_begin, class_end):
         p_mapped[s] = g.reduce(sv[i:j])
     
     return p_mapped
@@ -419,7 +419,7 @@ def compress(p, epsilon):
         assert len(states) == len(probabilities)
         
         # convert approximation back to a sparse dictionary format
-        for state, probability in itertools.izip(states, probabilities):
+        for state, probability in zip(states, probabilities):
             p_compressed[tuple(state)] = probability
         
     return p_compressed
@@ -428,7 +428,7 @@ def lp_norm(d, p = 1):
     """
     Returns the Lp norm of the distribution d. Default p = 1.
     """
-    x = numpy.array(d.values(), dtype=numpy.float)
+    x = numpy.fromiter(d.values(), dtype=numpy.float)
     return numpy.linalg.norm(x, ord = p)
 
 def lp_distance(x, y, p = 1):

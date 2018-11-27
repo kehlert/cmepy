@@ -20,7 +20,7 @@ def shape_invariant(f):
         out_shape = numpy.shape(x)
         if in_shape != out_shape:
             out_shape += (1, )*(len(in_shape) - len(out_shape))
-            tiling = tuple(x / y for (x, y) in zip(in_shape, out_shape))
+            tiling = tuple(int(x / y) for (x, y) in zip(in_shape, out_shape))
             x = numpy.tile(x, tiling)
         return  x
     return shape_invariant_f
@@ -73,7 +73,7 @@ def indices_ext(shape, slices=None, origin=None):
     
     # derive concrete slices from abstract slices using provided shape
     # (mgrid does not accept abstract slices)
-    slices_and_dims = itertools.izip(slices, shape)
+    slices_and_dims = zip(slices, shape)
     slices_concrete = [slice(*sl.indices(n)) for (sl, n) in slices_and_dims]
     indices = numpy.mgrid[slices_concrete]
     

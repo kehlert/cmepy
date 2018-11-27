@@ -40,8 +40,8 @@ class RecorderTests(unittest.TestCase):
                (4, ) : 0.4,}
         
         # map states via pairwise aggregation
-        even = lambda *x : x[0]/2
-        odd = lambda *x : x[0]/2 + 1
+        even = lambda *x : numpy.floor(x[0]/2)
+        odd = lambda *x : numpy.floor(x[0]/2) + 1
         
         rec = cmepy.recorder.create((('even', 'odd'), (even, odd)))
         

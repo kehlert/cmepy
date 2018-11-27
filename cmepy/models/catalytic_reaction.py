@@ -65,11 +65,11 @@ def gen_states(**initial_counts):
     
     initial_counts.setdefault('A', 50)
     initial_counts.setdefault('D', 80)
-    for r_1 in xrange(initial_counts['A'] + 1):
+    for r_1 in range(initial_counts['A'] + 1):
         r_2_min = non_neg(r_1 - 3)
         r_2_max = r_1
-        for r_2 in xrange(r_2_min, r_2_max + 1):
-            for r_3 in xrange(initial_counts['D'] + 1):
+        for r_2 in range(r_2_min, r_2_max + 1):
+            for r_3 in range(initial_counts['D'] + 1):
                 yield (r_1, r_2, r_3)
     return
 
@@ -163,11 +163,11 @@ def main():
         for t in interval:
             solver.step(t)
             p, p_sink = solver.y
-            print 'time : %.3f, truncation error: %.1e' % (t, p_sink)
-        print 'recording results'
+            print('time : {:.4}, truncation error: {:.4E}'.format(t, p_sink))
+        print('recording results')
         recorder.write(interval[-1], p)
     
-    print 'plotting results'
+    print('plotting results')
     
     marginal_shape = (initial_counts['D']+1, )
     measurement = recorder['E']
