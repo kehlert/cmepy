@@ -9,6 +9,9 @@ from numpy.testing import assert_almost_equal
 import cmepy.recorder
 import cmepy.solver
 from cmepy import model
+from cmepy.models import burr08
+from cmepy.fsp import solver
+from cmepy.fsp import support_expander
 
 def exact_poisson(rates, shape):
     poissons = []
@@ -156,6 +159,24 @@ class SolverTests(unittest.TestCase):
             t_max,
             f,
             exact_monomolecular_abc(t_max, exact_size)
+        )
+
+    def test_burr_08(self):
+        #after converting to python3, there was an error when creating the solver
+        model = burr08.create_model()
+        initial_states = cmepy.domain.from_iter((model.initial_state), )
+
+        expander = cmepy.fsp.support_expander.SupportExpander(
+            model.transitions,
+            depth = 4,
+            epsilon = 10**(-6)
+        )
+
+        s = cmepy.fsp.solver.create(
+            model,
+            initial_states,
+            expander,
+            time_dependencies = burr08.create_time_dependencies()
         )
 
 def suite():

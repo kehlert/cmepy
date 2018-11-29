@@ -27,10 +27,17 @@ def from_iter(state_iter):
     
     Returns array of all states from the state iterator 'state_iter'.
     """
-    if type(state_iter) is set:
-        return numpy.asarray(list(state_iter)).transpose()
+    if type(state_iter) is set or type(state_iter) is tuple:
+        states = numpy.asarray(list(state_iter)).transpose()
     else:
-        return numpy.asarray(list(state_iter.keys())).transpose()
+        states = numpy.asarray(list(state_iter.keys())).transpose()
+
+    if states.ndim > 1:
+        return states
+    else:
+        #transpose does not turn a 1D row vector into a column vector
+        #so we need to do this manually for the downstream code
+        return numpy.vstack(states)
 
 def from_mapping(state_mapping):
     """
