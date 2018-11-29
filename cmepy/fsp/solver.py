@@ -5,7 +5,6 @@ An implementation of FSP with compression.
 import numpy
 import cmepy.restorable_solver
 import cmepy.domain
-import exceptions
         
 def create(model, domain_states, domain_expander, **kwargs):
     """
@@ -52,7 +51,7 @@ def create(model, domain_states, domain_expander, **kwargs):
         domain_expander
     )
 
-class ExpansionFailureError(exceptions.StandardError):
+class ExpansionFailureError(Exception):
     """
     Exception raised if a failure occurs while expanding the domain states.
 
@@ -62,8 +61,6 @@ class ExpansionFailureError(exceptions.StandardError):
 
     def __init__(self, msg):
         self.msg = msg
-        exceptions.StandardError.__init__(self)
-    
 
 class FspSolver(object):
     """
